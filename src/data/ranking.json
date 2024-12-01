@@ -1,21 +1,10 @@
-[
-    {
-        "key": 1,
-        "name": "model_0",
-        "sharpe_1d": 0,
-        "sharpe_7d": 0,
-        "sharpe_30d": 0,
-        "sharpe_90d": 0,
-        "sharpe_365d": 0
-    },
-    {
-        "key": 2,
-        "name": "model_1",
-        "sharpe_1d": 1,
-        "sharpe_7d": 2,
-        "sharpe_30d": 3,
-        "sharpe_90d": 4,
-        "sharpe_365d": 5
-    }
-  ]
-  
+[{
+    "name": "openai_fundamental",
+    "1d_SR": 0,
+    "1d_VOL": "NaN",
+    "5d_SR": 0,
+    "5d_VOL": 0,
+    "21d_SR": 0,
+    "21d_VOL": 0
+}
+]

@@ -39,48 +39,56 @@ export function Ranking() {
   const cols = Object.keys(ranking[0]);
 
   return (
-    <div>
-      <h4 className="font-extrabold tracking-tight m-1">Standings</h4>
-      <div className="overflow-x-auto">
-        {" "}
-        <Table className="w-full border border-gray-200 rounded-lg">
-          <TableHeader className="bg-gray-100">
-            <TableRow>
-              {cols.map((key) => (
-                <TableHead className="text-gray-700 text-center font-semibold p-2">
-                  {key.toUpperCase()}
-                </TableHead>
-              ))}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {ranking.map((model, index) => (
-              <TableRow
-                key={model.name}
-                className={`${
-                  index % 2 === 0 ? "bg-gray-50" : "bg-white"
-                } hover:bg-gray-100 transition duration-200`}
+<div>
+  <h4 className="font-extrabold tracking-tight m-1">Standings</h4>
+  <div className="overflow-x-auto">
+    <Table
+      className="w-full border border-gray-200 rounded-lg table-fixed"
+      style={{ tableLayout: "fixed" }}
+    >
+      <TableHeader className="bg-gray-100">
+        <TableRow>
+          {cols.map((key) => (
+            <TableHead
+              key={key}
+              className="text-gray-700 text-center font-medium p-1 text-sm truncate"
+              style={{ maxWidth: "100px" }} // Limit column width
+            >
+              {key.toUpperCase()}
+            </TableHead>
+          ))}
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {ranking.map((model, index) => (
+          <TableRow
+            key={model.name}
+            className={`${
+              index % 2 === 0 ? "bg-gray-50" : "bg-white"
+            } hover:bg-gray-100 transition duration-200`}
+          >
+            {Object.entries(model).map(([key, value]) => (
+              <TableCell
+                key={key}
+                className={`font-medium text-center p-1 text-sm truncate ${
+                  typeof value === "number" && value > 1
+                    ? "text-green-600"
+                    : typeof value === "number" && value <= 0
+                    ? "text-red-600"
+                    : "text-gray-800"
+                }`}
+                style={{ maxWidth: "100px" }} // Limit cell width
               >
-                {Object.entries(model).map(([key, value]) => (
-                  <TableCell
-                    key={key}
-                    className={`font-medium text-center p-2 ${
-                      typeof value === "number" && value > 1
-                        ? "text-green-600"
-                        : typeof value === "number" && value <= 0
-                        ? "text-red-600"
-                        : "text-gray-800"
-                    }`}
-                  >
-                    {value}
-                  </TableCell>
-                ))}
-              </TableRow>
+                {value}
+              </TableCell>
             ))}
-          </TableBody>
-        </Table>
-      </div>
-    </div>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  </div>
+</div>
+
   );
 }
 
@@ -140,7 +148,7 @@ export function Component() {
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
-            <Pie data={chartData} dataKey="visitors" nameKey="browser" />
+            <Pie data={chartData} dataKey="weight" nameKey="symbol" />
           </PieChart>
         </ChartContainer>
       </CardContent>
@@ -152,9 +160,9 @@ export function App() {
   return (
     <div>
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 flex flex-col items-center px-6">
-        <div className="w-full max-w-5xl mt-10 bg-white shadow-lg rounded-lg p-8">
-          <h1 className="text-center text-5xl font-extrabold tracking-tight text-gray-900 lg:text-6xl">
-            🧾 (asset) pricing robots
+        <div className="w-full max-w-7xl mt-10 bg-white shadow-lg rounded-lg p-8">
+          <h1 className="text-center text-5xl font-extrabold font-mono tracking-tight text-gray-900 lg:text-6xl">
+            🎰 (asset) pricing robots
           </h1>
           <p className="text-center text-gray-600 text-sm mt-4">
             Ranking LLMs' investing performance.

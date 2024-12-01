@@ -1,21 +1,21 @@
 {
     "portfolio1": [
-      { "browser": "AAPL", "visitors": 0.89 },
-      { "browser": "NVDA", "visitors": 1.321 },
-      { "browser": "MSFT", "visitors": 0.914 },
-      { "browser": "AMZN", "visitors": 0.279 }
+      { "symbol": "AAPL", "weight": 0.89 },
+      { "symbol": "NVDA", "weight": 1.321 },
+      { "symbol": "MSFT", "weight": 0.914 },
+      { "symbol": "AMZN", "weight": 0.279 }
     ],
     "portfolio2": [
-      { "browser": "TSLA", "visitors": 1.5 },
-      { "browser": "GOOG", "visitors": 0.8 },
-      { "browser": "META", "visitors": 1.2 },
-      { "browser": "NFLX", "visitors": 0.6 }
+      { "symbol": "TSLA", "weight": 1.5 },
+      { "symbol": "GOOG", "weight": 0.8 },
+      { "symbol": "META", "weight": 1.2 },
+      { "symbol": "NFLX", "weight": 0.6 }
     ],
     "portfolio3": [
-      { "browser": "BABA", "visitors": 1.1 },
-      { "browser": "ORCL", "visitors": 0.7 },
-      { "browser": "ADBE", "visitors": 1.3 },
-      { "browser": "INTC", "visitors": 0.9 }
+      { "symbol": "BABA", "weight": 1.1 },
+      { "symbol": "ORCL", "weight": 0.7 },
+      { "symbol": "ADBE", "weight": 1.3 },
+      { "symbol": "INTC", "weight": 0.9 }
     ]
   }
   
