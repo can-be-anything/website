@@ -1,8 +1,0 @@
-- symbol: AAPL
-  companyName: apple
-  percentageChange: 1.02
-  date: Dec 1, 2024
-- symbol: NVDA
-  companyName: nvidia
-  percentageChange: 2.15
-  date: Dec 1, 2024
