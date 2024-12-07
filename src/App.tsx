@@ -30,8 +30,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import ranking from "./data/ranking.json";
-import portfolios from "./data/portfolios.json";
+import ranking from "./data/prod-database/3-reporting/ranking.json";
+import portfolios from "./data/prod-database/3-reporting/last_portfolio.json";
 
 import { useState } from "react";
 
@@ -99,14 +99,26 @@ export function Component() {
   };
 
   // State for the selected portfolio
-  const [selectedPortfolio, setSelectedPortfolio] = useState("portfolio1");
+  const [selectedPortfolio, setSelectedPortfolio] = useState("portfolio-long_only");
 
   // Generate chart data based on the selected portfolio
-  const chartData = portfolios[selectedPortfolio].map((item, index, array) => ({
-    ...item,
-    fill: generateColor(index, array.length),
-  }));
-
+  const chartData = portfolios[selectedPortfolio].map((item, index, array) => {
+    const isNegative = item.weight < 0;
+    
+    // Create a display symbol with sign
+    const displaySymbol = `${isNegative ? '-' : '+'}${item.symbol}`;
+  
+    // Convert the weight to a positive value for the chart, but keep track of the sign in the symbol
+    const displayWeight = Math.abs(item.weight);
+  
+    return {
+      ...item,
+      symbol: displaySymbol,
+      weight: displayWeight,
+      fill: generateColor(index, array.length),
+    };
+  });
+    
   const chartConfig = {
     visitors: {
       label: "Visitors",
@@ -124,9 +136,10 @@ export function Component() {
           <SelectValue placeholder="Select Portfolio" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="portfolio1">Portfolio 1</SelectItem>
-          <SelectItem value="portfolio2">Portfolio 2</SelectItem>
-          <SelectItem value="portfolio3">Portfolio 3</SelectItem>
+          {Object.keys(portfolios).map((key) => (
+            <SelectItem key={key} value={key}>
+              {key}</SelectItem>
+            ))}
         </SelectContent>
       </Select>
 
