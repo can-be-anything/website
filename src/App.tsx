@@ -42,50 +42,57 @@ export function Ranking() {
 <div>
   <h4 className="font-extrabold tracking-tight m-1">Standings</h4>
   <div className="overflow-x-auto">
-    <Table
-      className="w-full border border-gray-200 rounded-lg table-fixed"
-      style={{ tableLayout: "fixed" }}
-    >
-      <TableHeader className="bg-gray-100">
-        <TableRow>
-          {cols.map((key) => (
-            <TableHead
+  <Table className="w-full border border-gray-200 rounded-lg table-fixed">
+  <TableHeader className="bg-gray-100">
+    <TableRow>
+      {cols.map((key) => (
+        <TableHead
+          key={key}
+          className="w-24 text-gray-700 text-center font-medium p-1 text-sm overflow-hidden text-ellipsis whitespace-nowrap"
+        >
+          {key.toUpperCase()}
+        </TableHead>
+      ))}
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    {ranking.map((model, index) => (
+      // Add "group" class on the row so we can use "group-hover" on cells
+      <TableRow
+        key={model.name}
+        className={`${
+          index % 2 === 0 ? "bg-gray-50" : "bg-white"
+        } hover:bg-gray-100 transition duration-200 group`}
+      >
+        {Object.entries(model).map(([key, value]) => {
+          const valueColor =
+            typeof value === "number" && value > 1
+              ? "text-green-600"
+              : typeof value === "number" && value <= 0
+              ? "text-red-600"
+              : "text-gray-800";
+
+          return (
+            <TableCell
               key={key}
-              className="text-gray-700 text-center font-medium p-1 text-sm truncate"
-              style={{ maxWidth: "100px" }} // Limit column width
+              className={`w-24 text-center p-1 text-sm ${valueColor}`}
             >
-              {key.toUpperCase()}
-            </TableHead>
-          ))}
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {ranking.map((model, index) => (
-          <TableRow
-            key={model.name}
-            className={`${
-              index % 2 === 0 ? "bg-gray-50" : "bg-white"
-            } hover:bg-gray-100 transition duration-200`}
-          >
-            {Object.entries(model).map(([key, value]) => (
-              <TableCell
-                key={key}
-                className={`font-medium text-center p-1 text-sm truncate ${
-                  typeof value === "number" && value > 1
-                    ? "text-green-600"
-                    : typeof value === "number" && value <= 0
-                    ? "text-red-600"
-                    : "text-gray-800"
-                }`}
-                style={{ maxWidth: "100px" }} // Limit cell width
+              <div
+                className="
+                  overflow-hidden text-ellipsis whitespace-nowrap 
+                  group-hover:overflow-visible group-hover:whitespace-normal group-hover:text-clip group-hover:break-words
+                "
               >
                 {value}
-              </TableCell>
-            ))}
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+              </div>
+            </TableCell>
+          );
+        })}
+      </TableRow>
+    ))}
+  </TableBody>
+</Table>
+
   </div>
 </div>
 
@@ -99,7 +106,7 @@ export function Component() {
   };
 
   // State for the selected portfolio
-  const [selectedPortfolio, setSelectedPortfolio] = useState("portfolio-long_only");
+  const [selectedPortfolio, setSelectedPortfolio] = useState("gpt-3.5-turbo/ranking/long_only");
 
   // Generate chart data based on the selected portfolio
   const chartData = portfolios[selectedPortfolio].map((item, index, array) => {
